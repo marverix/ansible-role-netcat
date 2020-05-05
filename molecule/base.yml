@@ -1,0 +1,41 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint: |
+  yamllint -c .yamllint.yml .
+  ansible-lint -c .ansible-lint.yml .
+
+platforms:
+  - name: ubuntu18
+    image: bitbar/ubupy:bionic
+    pre_build_image: true
+
+  - name: centos7
+    image: pycontribs/centos:7
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible
+
+scenario:
+  test_sequence:
+    # - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    # - side_effect
+    - verify
+    - cleanup
+    - destroy

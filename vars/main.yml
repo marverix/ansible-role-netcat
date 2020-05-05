@@ -1,0 +1,17 @@
+---
+netcat_package:
+  ncat:
+    CentOS: https://nmap.org/dist/ncat-7.80-1.x86_64.rpm
+    Ubuntu: http://archive.ubuntu.com/ubuntu/pool/universe/n/nmap/ncat_7.80+dfsg1-1build1_amd64.deb
+
+  cryptcat:
+    CentOS: https://ftp.tu-chemnitz.de/pub/linux/dag/redhat/el7/en/x86_64/rpmforge/RPMS/cryptcat-1.2.1-1.el7.rf.x86_64.rpm
+    Ubuntu: http://archive.ubuntu.com/ubuntu/pool/universe/c/cryptcat/cryptcat_20031202-4build1_amd64.deb
+
+netcat_package_tmp:
+  CentOS: /tmp/ncat_package.rpm
+  Ubuntu: /tmp/ncat_package.deb
+
+netcat_aliases:
+  - nc
+  - netcat

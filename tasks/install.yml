@@ -1,0 +1,27 @@
+---
+- name: Download the file
+  get_url:
+    url: "{{ netcat_package[item]['' + ansible_distribution] }}"
+    dest: "{{ netcat_package_tmp['' + ansible_distribution] }}"
+
+- name: Remove existing
+  package:
+    name: "{{ item }}"
+    state: absent
+
+- name: Install package (Ubuntu)
+  when: ansible_distribution == 'Ubuntu'
+  apt:
+    deb: "{{ netcat_package_tmp['' + ansible_distribution] }}"
+    state: present
+
+- name: Install package (CentOS)
+  when: ansible_distribution == 'CentOS'
+  yum:
+    name: "{{ netcat_package_tmp['' + ansible_distribution] }}"
+    state: present
+
+- name: Cleaning
+  file:
+    path: "{{ netcat_package_tmp['' + ansible_distribution] }}"
+    state: absent

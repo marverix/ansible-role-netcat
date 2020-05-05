@@ -1,0 +1,27 @@
+---
+
+- name: Remove existing
+  package:
+    name: "{{ netcat_aliases }}"
+    state: absent
+
+- name: "Install {{ item }}"
+  include_tasks: install.yml
+  loop: "{{ netcat_install }}"
+
+- name: Set up aliases
+  block:
+
+    - name: /etc/alternatives
+      file:
+        src: "/usr/bin/{{ netcat_alias_to }}"
+        dest: "/etc/alternatives/{{ item }}"
+        state: link
+      loop: "{{ netcat_aliases }}"
+
+    - name: /bin
+      file:
+        src: "/etc/alternatives/{{ item }}"
+        dest: "/bin/{{ item }}"
+        state: link
+      loop: "{{ netcat_aliases }}"

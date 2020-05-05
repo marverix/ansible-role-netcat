@@ -1,0 +1,28 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+
+  - name: Check Ncat version
+    command: "ncat --version"
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'Ncat: Version ' in test.stderr"
+
+  - name: Check nc alias
+    command: "nc --version"
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'Ncat: Version ' in test.stderr"
+
+  - name: Check netcat alias
+    command: "netcat --version"
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'Ncat: Version ' in test.stderr"

@@ -1,0 +1,31 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+
+  - name: Check Cryptcat version
+    command: "cryptcat -h"
+    failed_when: no
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'connect to somewhere:' in test.stderr"
+
+  - name: Check nc alias
+    command: "nc -h"
+    failed_when: no
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'connect to somewhere:' in test.stderr"
+
+  - name: Check netcat alias
+    command: "netcat -h"
+    failed_when: no
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'connect to somewhere:' in test.stderr"

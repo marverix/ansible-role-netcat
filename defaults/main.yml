@@ -1,0 +1,4 @@
+---
+netcat_install:
+  - ncat
+netcat_alias_to: ncat

@@ -1,8 +1,8 @@
 # Ansible Role: Netcat
 
 [![Build Status](https://travis-ci.com/marverix/ansible-role-netcat.svg?branch=master)](https://travis-ci.com/marverix/ansible-role-netcat)
-![Ansible Quality Score](https://img.shields.io/ansible/quality/48217)
-![Ansible Role](https://img.shields.io/ansible/role/48217)
+![Ansible Quality Score](https://img.shields.io/ansible/quality/48453)
+![Ansible Role](https://img.shields.io/ansible/role/48453)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
 
 Ansible role that installs Netcat on Linux.

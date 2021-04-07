@@ -3,7 +3,7 @@ language: python
 services: docker
 
 install:
-  - pip install ansible molecule molecule-docker docker yamllint ansible-lint
+  - pip install -r https://raw.githubusercontent.com/marverix/ansible-roles-common/latest/test-requirements.txt
 
 script:
   - sh test.sh

@@ -23,7 +23,9 @@ Note: There are couple versions of "netcat". Ie. Debian provides `netcat-openbsd
 ## Supported Platforms
 
 - ✔️ Ubuntu 18.04 (Bionic)
+- ✔️ Ubuntu 20.04 (Focal)
 - ✔️ CentOS 7
+- ✔️ CentOS 8
 
 ## Requirements
 

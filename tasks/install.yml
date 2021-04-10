@@ -1,27 +1,48 @@
 ---
+- name: Set file name
+  set_fact:
+    netcat_package_tmp: "/tmp/ncat_package.{{ netcat_package_ext[ansible_distribution] }}"
+
 - name: Download the file
   get_url:
     url: "{{ netcat_package[item]['' + ansible_distribution] }}"
-    dest: "{{ netcat_package_tmp['' + ansible_distribution] }}"
+    dest: "{{ netcat_package_tmp }}"
+  register: response
+  changed_when: "response.status_code != 200"
 
-- name: Remove existing
-  package:
-    name: "{{ item }}"
-    state: absent
-
-- name: Install package (Ubuntu)
+- name: Ubuntu support
   when: ansible_distribution == 'Ubuntu'
-  apt:
-    deb: "{{ netcat_package_tmp['' + ansible_distribution] }}"
-    state: present
+  block:
+    - name: Uninstall existing
+      apt:
+        name: "*{{ item }}"
+        state: absent
+        force_apt_get: yes
+      changed_when: false
 
-- name: Install package (CentOS)
+    - name: Install
+      apt:
+        deb: "{{ netcat_package_tmp }}"
+      changed_when: false
+
+- name: CentOS support
   when: ansible_distribution == 'CentOS'
-  yum:
-    name: "{{ netcat_package_tmp['' + ansible_distribution] }}"
-    state: present
+  block:
+    - name: Uninstall existing
+      yum:
+        name: "*{{ item }}"
+        state: absent
+      changed_when: false
 
-- name: Cleaning
+    - name: Install
+      yum:
+        name: "{{ netcat_package_tmp }}"
+        disable_gpg_check: yes
+      changed_when: false
+
+- name: Clean
   file:
-    path: "{{ netcat_package_tmp['' + ansible_distribution] }}"
+    path: "{{ netcat_package_tmp }}"
     state: absent
+  register: result
+  changed_when: "result.diff.before.state != 'file' or result.diff.after.state != 'absent'"

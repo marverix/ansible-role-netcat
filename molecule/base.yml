@@ -14,8 +14,16 @@ platforms:
     image: bitbar/ubupy:bionic
     pre_build_image: true
 
+  - name: ubuntu20
+    image: bitbar/ubupy:focal
+    pre_build_image: true
+
   - name: centos7
     image: pycontribs/centos:7
+    pre_build_image: true
+
+  - name: centos8
+    image: pycontribs/centos:8
     pre_build_image: true
 
 provisioner:
@@ -34,7 +42,7 @@ scenario:
     - create
     - prepare
     - converge
-    # - idempotence
+    - idempotence
     # - side_effect
     - verify
     - cleanup

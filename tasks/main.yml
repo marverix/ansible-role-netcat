@@ -1,6 +1,6 @@
 ---
 
-- name: Remove existing
+- name: Remove alias
   package:
     name: "{{ netcat_aliases }}"
     state: absent
